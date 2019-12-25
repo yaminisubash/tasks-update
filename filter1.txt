@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<title>
+
+AngularJs filter Example
+
+</title>
+
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+
+<script>
+
+var app = angular.module("AngularfilterApp", []);
+
+app.controller("filterctrl", function ($scope) {
+
+$scope.users = [{name: "Subash",age: 57}, {name: "Lakshmi",age: 54}, {name: "Yamini",age: 23}, {name: "Sruthi", 'age': 21}];
+
+});
+
+</script>
+
+</head>
+
+<body ng-app="AngularfilterApp">
+
+<div ng-controller="filterctrl">
+
+Enter Name to Filter:<input ng-model="searchtxt" type="text" placeholder="only name">
+
+<table>
+
+<tr><th>Name</th><th>Age</th></tr>
+
+<tr ng-repeat="user in users | filter : searchtxt">
+
+<td>{{user.name}}</td>
+
+<td>{{user.age}}</td>
+
+</tr>
+
+</table>
+
+</div>
+
+</body>
+
+</html>

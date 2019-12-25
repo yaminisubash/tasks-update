@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+    <style>
+        div{
+            font:25px calibri;
+            width:450px;
+        }
+        ul {
+            padding:0;
+            margin:2px 5px; 
+           
+            border:0; 
+            float:left; 
+            width:100%;
+        }
+        
+        table, input {
+            text-align:left;
+            font:20px calibri;
+        }
+        table, td, th 
+        {
+            margin:10px 0;
+            padding:2px 10px;
+        }
+        td, th {
+            border:1px solid black;
+        }
+        button {
+            font:20px calibri;
+            padding:3px 5px;
+        }
+    </style>
+</head>
+<body>
+    <div ng-app="myApp" ng-controller="myController">
+        <ul>
+            <li>First Name</li>
+            <li><input type="text" ng-model="Fname" /></li>
+        </ul>
+        <ul>
+            <li>Last Name</li>
+            <li><input type="text" ng-model="Lname" /></li>
+        </ul>
+        <ul>
+            <li> </li><li><button ng-click="addRow()"> Add Row </button></li>
+        </ul>
+
+        <!--CREATE A TABLE-->
+        <table> 
+            <tr>
+                
+                    <th>First Name</th>
+                        <th>Last Name</th>
+            </tr>
+
+            <tr ng-repeat="Names in nameArray">
+                
+                <td><label>{{Names.Fname}}</label></td>
+                <td><label>{{Names.Lname}}</label></td>
+               
+            </tr>
+        </table>
+
+       
+    </div>
+</body>
+
+<!--The Controller-->
+<script>
+    var app = angular.module('myApp', []);
+    app.controller('myController', function ($scope) {
+
+        // JSON ARRAY TO POPULATE TABLE.
+        $scope.nameArray =
+        [
+            { 'Fname': 'Yamini', 'Lname': 'subash' },
+            { 'Fname': 'Sruthi', 'Lname': 'subash' },
+           
+        ];
+
+        // GETTING VALUES FROM INPUT BOXES AND ADDING A NEW ROW TO THE TABLE.
+        $scope.addRow = function () {
+            if ($scope.Fname != null && $scope.Lname != null) {
+                var name = [];
+                name.Fname = $scope.Fname;
+                name.Lname = $scope.Lname;
+
+                $scope.nameArray.push(name);
+
+                 // CLEAR THE TEXTBOX AFTER ADDING A ROW IN A TABLE.
+                $scope.Fname = null;
+                $scope.Lname = null; 
+            }
+        };
+        
+    });
+</script>
+</html>

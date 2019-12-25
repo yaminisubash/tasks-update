@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.13/angular.min.js"></script>
+ <script>
+var myApp = angular.module("myApp", []);
+ myApp.controller("myController", function($scope) {
+ $scope.editablerow = '';
+ 
+ $scope.rows = [{ 'name':'John','country':'USA'}, { 'name':'Kelly','country':'Australia'}, {'name':'Rimmy','country':'India'}];
+
+  $scope.editContent = function(content) { 
+        $scope.editablerow = angular.copy(content);   
+	
+ }
+ $scope.loadTemplate = function(content) { 
+    if (content.id === $scope.editablerow.id) return 'edit';
+        else return 'view';
+ }
+ $scope.saveData = function (indx) {
+        $scope.rows[indx] = angular.copy($scope.editablerow);
+        $scope.reset();
+    };
+$scope.reset = function(){
+$scope.editablerow = [];
+}
+});
+</script>
+</head>
+<body>  
+<div ng-app="myApp" ng-controller="myController">
+<span style='color:green;font-weight:bold;'>{{message}}</span> 
+<table>
+<tr><th>Name</th><th>Country</th></tr>
+
+<tr ng-repeat="content in rows" ng-include="loadTemplate(content)">
+</tr>
+</table>
+</div>
+</body>  
+
+<script type="text/ng-template" id="view">
+        <td>{{content.name}}</td>
+        <td>{{content.country}}</td> 
+        <td>
+            <button ng-click="editContent(content)">Edit</button>
+        </td>
+    </script>
+
+    <script type="text/ng-template" id="edit">
+        
+        <td> <input type="text" ng-model="editablerow.name" /></td>
+       <td> <input type="text" ng-model="editablerow.country" /></td>
+        <td>
+            <button ng-click="saveData($index)">Save</button>
+            <button ng-click="reset()">Cancel</button>
+        </td>
+    </script>
+ 
+
+</html> 
